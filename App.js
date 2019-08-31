@@ -1,12 +1,21 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native'; 
+import CourseScreen from './screens/courseScreen' 
+import  configureStore  from './redux/configureStore'
+ 
+import {Provider} from 'react-redux'
 
-export default function App() {
+ const store = configureStore();
+export default class App extends React.Component {
+ render (){   
   return (
+    <Provider store={store}> 
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
+      <CourseScreen  />
     </View>
-  );
+    </Provider>
+  ) 
+ } 
 }
 
 const styles = StyleSheet.create({
