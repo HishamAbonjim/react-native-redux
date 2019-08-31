@@ -1,7 +1,9 @@
 import React from 'react';
 import { StyleSheet, Text, View , TextInput, Button } from 'react-native';  
 import {connect} from 'react-redux' 
-import * as courseActions  from '../redux/actions/coursesActions'
+import * as courseActions  from '../redux/actions/coursesActions'; 
+import { bindActionCreators } from 'redux';
+ 
 
   class CourseScreen extends  React.Component{ 
     state = {
@@ -20,7 +22,7 @@ import * as courseActions  from '../redux/actions/coursesActions'
       } 
       handelSubmit = ()=> 
       {  
-          this.props.dispatch(courseActions.createCourse(this.state.course))
+          this.props.actions.createCourse(this.state.course)
         alert(this.state.course.title); 
       }
      
@@ -55,5 +57,10 @@ import * as courseActions  from '../redux/actions/coursesActions'
         return { 
           course : state.course  
         }
-      } 
- export default connect(mapStateToProps)(CourseScreen)
+      }  
+      function mapDipatchToProps(dispatch){ 
+        return { 
+            actions: bindActionCreators(courseActions, dispatch) 
+        }
+      }
+ export default connect(mapStateToProps, mapDipatchToProps )(CourseScreen)
